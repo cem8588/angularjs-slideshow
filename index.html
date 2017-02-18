@@ -2,11 +2,115 @@
 <html>
 <head>
 	<title>Angular Data Table</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	
+	<!-- These`re not necessary, just for beauty -->
+	<link rel="stylesheet" type="text/css" href="css/beauty.css"> 
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type='text/css' data-noprefix>
+
 </head>
-<body>
+<body ng-app="app" ng-controller="mainCtr">
+
+    <div class="dataTable">
+        <div class="m3 left">
+            <span>Show </span>
+            <select ng-model="total_show" ng-change="changeTotalShow()">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+            </select> <span>entries</span>
+        </div>
+
+        <div class="m6 right">
+            <input type="text" ng-model="search" placeholder="Search ...">
+        </div>
+
+        <ul class="list">
+            <li class="head">
+                <span ng-click="sortKey('id')">Id</span>
+                <span ng-click="sortKey('name')">Name</span>
+                <span ng-click="sortKey('family')">Family</span>
+                <span ng-click="sortKey('gender')">Gender</span>
+                <span ng-click="sortKey('age')">Age</span>
+            </li>
+
+            <li class="data" ng-repeat="list in dataList | filter:search | limitTo:total_show:start_from | orderBy:myOrderBy">
+                <span>{{list.id}}</span>
+                <span>{{list.name}}</span>
+                <span>{{list.family}}</span>
+                <span>{{list.gender}}</span>
+                <span>{{list.age}}</span>
+            </li>
+
+
+
+            <li class="noresult" ng-if="!(dataList|filter:search).length">No matching channel found</li>
+
+        </ul>
+
+        <div class="row">
+            <div class="page-number">
+                <div class="row">
+                    <button ng-disabled="currentPage <= 1" ng-click="currentPage = currentPage - 1">Previous</button>
+                    <button ng-click="currentPage = 1" ng-show="currentPage >= 3">1</button>
+                    <button ng-show="currentPage >= 4" disabled>...</button>
+
+                    <span>
+                            <button ng-show="currentPage > 1" ng-click="currentPage = currentPage - 1">{{currentPage - 1 | ceilFilter}}</button>
+                            <button class="current-page-btn">{{currentPage | ceilFilter}}</button>
+                            <button ng-disabled="currentPage >= total_page" ng-show="currentPage < maxtotal" ng-click="currentPage = currentPage + 1">{{currentPage + 1 | ceilFilter}}</button>
+                        </span>
+
+                    <button class="btn-disabled" ng-hide="currentPage >= maxtotal -1" disabled>...</button>
+                    <button ng-disabled="currentPage >= maxtotal -1" ng-click="currentPage = currentPage + 1">Next</button>
+
+                </div>
+            </div>
+            <!-- #channel-page-number -->
+
+            <!-- Details -->
+            <br>
+            <div class="m3 left lightColor">Total Page: {{maxtotal}}</div>
+            <div class="m6 right lightColor">
+            	<div ng-show="totla_result_showing">
+                	Showing <b>{{start_from}}</b> to <b>{{(start_from * 1) + (total_show * 1)}}</b>, of <b>{{(dataList|filter:search).length}}</b> items
+        		</div>
+            </div>
+            
+
+
+        <div class="hide">
+            {{currentPage}} {{total_list = dataList.length}} {{total_page = total_list / total_show}} {{start_from = ((currentPage -1) * total_show) }} {{total_show}}
+        </div>
+
+        <div class="author">
+        	<p>
+        	  <a href="https://github.com/Thinkdiff/angularjs-datatable-seo-friendly">On Github</a>
+        	</p>
+        	<p>
+        	  Created by: Amir Salar Pourhasan (<a href="https://github.com/Thinkdiff">thinkdiff</a> )
+        	</p>  
+
+        	<p>
+        		Email: <a href="mailto:asp.2073@gmail.com">asp.2073@gmail.com</a>
+        	</p>
+        </div>
+
+    </div>		
 
 	<script type="text/javascript" src="js/angular.min.js"></script>
 	<script type="text/javascript">
+	var myApp = angular.module("app" , []);
+
+	myApp.filter('ceilFilter', function(){
+	    return function(data){
+	        return Math.ceil(data);
+	    };
+	});
+
+    myApp.controller("mainCtr" , function($scope){
+
 		var data = [  /* 30 item */
 			   {
 			   	"id"      : 1 ,
@@ -218,7 +322,29 @@
 			    "gender"  : "male",
 			    "age"     : 39
 			  }
-			]
+			];
+
+		$scope.dataList = data;	
+
+		$scope.currentPage = 1;
+	    $scope.total_show = "5";
+	    $scope.numberOfPages = 10;
+
+	    $scope.pagenumber = true;
+	    $scope.totla_result_showing = true;
+	    $scope.totla_result_showing_onsearcchh = false;
+
+	    $scope.sortKey = function(key) {
+        	$scope.currentPage = 1;
+            $scope.myOrderBy = key;
+        };
+
+        $scope.maxtotal = data.length / parseInt($scope.total_show);
+        $scope.changeTotalShow = function(){
+        	$scope.maxtotal = data.length / parseInt($scope.total_show);
+        };
+	});
+			
 	</script>
 </body>
 </html>
