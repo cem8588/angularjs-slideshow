@@ -6,7 +6,7 @@ A light and simple slide show with native angularjs without any external plugin.
 The lightest and simplest slideshow with angularjs under 2 min. There is no need to add external plugin.
 
 ## Demo
-`http://codepen.io/thinkdiff/pen/xgNyRz`
+http://codepen.io/thinkdiff/pen/xgNyRz
 
 ## Speed
 I haven't use any external plugin for angular and this is just native code. It has't more request for your project and it's too fast and flexible. you can add all of your images as much as you want.
