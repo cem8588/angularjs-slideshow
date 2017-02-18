@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Angular Data Table</title>
+</head>
+<body>
+
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript">
+		var data = [  /* 30 item */
+			   {
+			   	"id"      : 1 ,
+			    "name"    : "Flores",
+			    "family"  : "Sears",
+			    "gender"  : "male",
+			    "age"     : 30
+			  },
+			  {
+			   	"id"      : 2 ,
+			    "name"    : "Whitfield",
+			    "family"  : "Rios",
+			    "gender"  : "male",
+			    "age"     : 36
+			  },
+			  {
+			   	"id"      : 3 ,
+			    "name"    : "Kerri",
+			    "family"  : "Buck",
+			    "gender"  : "female",
+			    "age"     : 39
+			  },
+			  {
+			   	"id"      : 4 ,
+			    "name"    : "Rhoda",
+			    "family"  : "Oneil",
+			    "gender"  : "female",
+			    "age"     : 25
+			  },
+			  {
+			   	"id"      : 5 ,
+			    "name"    : "Farley",
+			    "family"  : "Melendez",
+			    "gender"  : "male",
+			    "age"     : 32
+			  },
+			  {
+			   	"id"      : 6 ,
+			    "name"    : "Green",
+			    "family"  : "Perry",
+			    "gender"  : "male",
+			    "age"     : 25
+			  },
+			  {
+			   	"id"      : 7 ,
+			    "name"    : "Weiss",
+			    "family"  : "Flynn",
+			    "gender"  : "male",
+			    "age"     : 25
+			  },
+			  {
+			   	"id"      : 8 ,
+			    "name"    : "Glover",
+			    "family"  : "Houston",
+			    "gender"  : "male",
+			    "age"     : 31
+			  },
+			  {
+			   	"id"      : 9 ,
+			    "name"    : "Ward",
+			    "family"  : "Wilson",
+			    "gender"  : "male",
+			    "age"     : 32
+			  },
+			  {
+			   	"id"      : 10 ,
+			    "name"    : "Mueller",
+			    "family"  : "Gould",
+			    "gender"  : "male",
+			    "age"     : 34
+			  },
+			  {
+			   	"id"      : 11 ,
+			    "name"    : "Ruth",
+			    "family"  : "Landry",
+			    "gender"  : "female",
+			    "age"     : 29
+			  },
+			  {
+			   	"id"      : 12 ,
+			    "name"    : "Guerra",
+			    "family"  : "Hyde",
+			    "gender"  : "male",
+			    "age"     : 37
+			  },
+			  {
+			   	"id"      : 13 ,
+			    "name"    : "Gloria",
+			    "family"  : "Salazar",
+			    "gender"  : "female",
+			    "age"     : 37
+			  },
+			  {
+			   	"id"      : 14 ,
+			    "name"    : "Opal",
+			    "family"  : "Delacruz",
+			    "gender"  : "female",
+			    "age"     : 27
+			  },
+			  {
+			   	"id"      : 15 ,
+			    "name"    : "Felecia",
+			    "family"  : "Gonzales",
+			    "gender"  : "female",
+			    "age"     : 29
+			  },
+			  {
+			   	"id"      : 16 ,
+			    "name"    : "Robertson",
+			    "family"  : "Mitchell",
+			    "gender"  : "male",
+			    "age"     : 34
+			  },
+			  {
+			   	"id"      : 17 ,
+			    "name"    : "Callahan",
+			    "family"  : "Torres",
+			    "gender"  : "male",
+			    "age"     : 22
+			  },
+			  {
+			   	"id"      : 18 ,
+			    "name"    : "Dotson",
+			    "family"  : "Bridges",
+			    "gender"  : "male",
+			    "age"     : 36
+			  },
+			  {
+			   	"id"      : 19 ,
+			    "name"    : "Georgette",
+			    "family"  : "Kramer",
+			    "gender"  : "female",
+			    "age"     : 20
+			  },
+			  {
+			   	"id"      : 20 ,
+			    "name"    : "Contreras",
+			    "family"  : "Hobbs",
+			    "gender"  : "male",
+			    "age"     : 38
+			  },
+			  {
+			   	"id"      : 21 ,
+			    "name"    : "Townsend",
+			    "family"  : "Holden",
+			    "gender"  : "male",
+			    "age"     : 25
+			  },
+			  {
+			   	"id"      : 22 ,
+			    "name"    : "Cline",
+			    "family"  : "Conley",
+			    "gender"  : "male",
+			    "age"     : 27
+			  },
+			  {
+			   	"id"      : 23 ,
+			    "name"    : "Ayala",
+			    "family"  : "Mccullough",
+			    "gender"  : "male",
+			    "age"     : 24
+			  },
+			  {
+			   	"id"      : 24 ,
+			    "name"    : "Joyce",
+			    "family"  : "Horn",
+			    "gender"  : "male",
+			    "age"     : 21
+			  },
+			  {
+			   	"id"      : 25 ,
+			    "name"    : "Guadalupe",
+			    "family"  : "Dodson",
+			    "gender"  : "female",
+			    "age"     : 22
+			  },
+			  {
+			   	"id"      : 26 ,
+			    "name"    : "Buck",
+			    "family"  : "Finch",
+			    "gender"  : "male",
+			    "age"     : 37
+			  },
+			  {
+			   	"id"      : 27 ,
+			    "name"    : "Barrett",
+			    "family"  : "Mendez",
+			    "gender"  : "male",
+			    "age"     : 34
+			  },
+			  {
+			   	"id"      : 28 ,
+			    "name"    : "Wendy",
+			    "family"  : "Dudley",
+			    "gender"  : "female",
+			    "age"     : 30
+			  },
+			  {
+			   	"id"      : 29 ,
+			    "name"    : "Beulah",
+			    "family"  : "Coffey",
+			    "gender"  : "female",
+			    "age"     : 31
+			  },
+			  {
+			   	"id"      : 30 ,
+			    "name"    : "Riley",
+			    "family"  : "Quinn",
+			    "gender"  : "male",
+			    "age"     : 39
+			  }
+			]
+	</script>
+</body>
+</html>
