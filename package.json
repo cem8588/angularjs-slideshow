@@ -1,24 +1,22 @@
 {
-  "name": "datatable",
+  "name": "angular-slideshow",
   "version": "1.0.0",
-  "description": "A powerful datatable for angularjs (SEO Frindly) by Amir Salar Pourhasan (thinkdiff)",
-  "main": "index.js",
+  "description": "A light and simple slide show with native angularjs without any external plugin.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Thinkdiff/angularjs-datatable-seo-friendly.git"
+    "url": "git+https://github.com/Thinkdiff/angularjs-slideshow.git"
   },
   "keywords": [
     "angularjs",
-    "datatable",
-    "seo"
-  ],
+    "slideshow"
+ ],
   "author": "Amir Salar Pourhasan",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Thinkdiff/angularjs-datatable-seo-friendly/issues"
+    "url": "https://github.com/Thinkdiff/angularjs-slideshow/issues"
   },
-  "homepage": "https://github.com/Thinkdiff/angularjs-datatable-seo-friendly#readme"
+  "homepage": "https://github.com/Thinkdiff/angularjs-slideshow#readme"
 }

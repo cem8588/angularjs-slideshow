@@ -1,348 +1,94 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Angular Data Table</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	
-	<!-- These`re not necessary, just for beauty -->
-	<link rel="stylesheet" type="text/css" href="css/beauty.css"> 
-	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type='text/css' data-noprefix>
+    <title>Angular slideshow</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 
 </head>
+
 <body ng-app="app" ng-controller="mainCtr">
 
-    <div class="dataTable">
-        <div class="m3 left">
-            <span>Show </span>
-            <select ng-model="total_show" ng-change="changeTotalShow()">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-            </select> <span>entries</span>
-        </div>
+    <div class="Slider" ng-mouseover="pauseSlider()" ng-mouseleave="playSlider()">
+        <img class="slide animated fadeIn" ng-repeat="slide in slideList" ng-show="SliderItemActive==$index" src="{{slide.img}}">
 
-        <div class="m6 right">
-            <input type="text" ng-model="search" placeholder="Search ...">
-        </div>
+        <button type="button" class="btn sliderIcon leftNextIcon" ng-click="SliderNext()">►</button>
+        <button type="button" class="btn sliderIcon leftPrevIco" ng-click="SliderPrev()">◄</button>
 
-        <ul class="list">
-            <li class="head">
-                <span ng-click="sortKey('id')">Id</span>
-                <span ng-click="sortKey('name')">Name</span>
-                <span ng-click="sortKey('family')">Family</span>
-                <span ng-click="sortKey('gender')">Gender</span>
-                <span ng-click="sortKey('age')">Age</span>
-            </li>
+    </div>
 
-            <li class="data" ng-repeat="list in dataList | filter:search | limitTo:total_show:start_from | orderBy:myOrderBy">
-                <span>{{list.id}}</span>
-                <span>{{list.name}}</span>
-                <span>{{list.family}}</span>
-                <span>{{list.gender}}</span>
-                <span>{{list.age}}</span>
-            </li>
+    <div class="author">
+        <p>
+            <a href="https://github.com/Thinkdiff/angularjs-slideshow">On Github</a>
+        </p>
+        <p>
+            Created by: Amir Salar Pourhasan (<a href="https://github.com/Thinkdiff">thinkdiff</a> )
+        </p>
 
+        <p>
+            Email: <a href="mailto:asp.2073@gmail.com">asp.2073@gmail.com</a>
+        </p>
+    </div>
 
-
-            <li class="noresult" ng-if="!(dataList|filter:search).length">No matching channel found</li>
-
-        </ul>
-
-        <div class="row">
-            <div class="page-number">
-                <div class="row">
-                    <button ng-disabled="currentPage <= 1" ng-click="currentPage = currentPage - 1">Previous</button>
-                    <button ng-click="currentPage = 1" ng-show="currentPage >= 3">1</button>
-                    <button ng-show="currentPage >= 4" disabled>...</button>
-
-                    <span>
-                            <button ng-show="currentPage > 1" ng-click="currentPage = currentPage - 1">{{currentPage - 1 | ceilFilter}}</button>
-                            <button class="current-page-btn">{{currentPage | ceilFilter}}</button>
-                            <button ng-disabled="currentPage >= total_page" ng-show="currentPage < maxtotal" ng-click="currentPage = currentPage + 1">{{currentPage + 1 | ceilFilter}}</button>
-                        </span>
-
-                    <button class="btn-disabled" ng-hide="currentPage >= maxtotal -1" disabled>...</button>
-                    <button ng-disabled="currentPage >= maxtotal -1" ng-click="currentPage = currentPage + 1">Next</button>
-
-                </div>
-            </div>
-            <!-- #channel-page-number -->
-
-            <!-- Details -->
-            <br>
-            <div class="m3 left lightColor">Total Page: {{maxtotal}}</div>
-            <div class="m6 right lightColor">
-            	<div ng-show="totla_result_showing">
-                	Showing <b>{{start_from}}</b> to <b>{{(start_from * 1) + (total_show * 1)}}</b>, of <b>{{(dataList|filter:search).length}}</b> items
-        		</div>
-            </div>
-            
-
-
-        <div class="hide">
-            {{currentPage}} {{total_list = dataList.length}} {{total_page = total_list / total_show}} {{start_from = ((currentPage -1) * total_show) }} {{total_show}}
-        </div>
-
-        <div class="author">
-        	<p>
-        	  <a href="https://github.com/Thinkdiff/angularjs-datatable-seo-friendly">On Github</a>
-        	</p>
-        	<p>
-        	  Created by: Amir Salar Pourhasan (<a href="https://github.com/Thinkdiff">thinkdiff</a> )
-        	</p>  
-
-        	<p>
-        		Email: <a href="mailto:asp.2073@gmail.com">asp.2073@gmail.com</a>
-        	</p>
-        </div>
-
-    </div>		
-
+    </div>
 	<script type="text/javascript" src="js/angular.min.js"></script>
 	<script type="text/javascript">
 	var myApp = angular.module("app" , []);
 
-	myApp.filter('ceilFilter', function(){
-	    return function(data){
-	        return Math.ceil(data);
-	    };
-	});
-
     myApp.controller("mainCtr" , function($scope){
 
-		var data = [  /* 30 item */
-			   {
-			   	"id"      : 1 ,
-			    "name"    : "Flores",
-			    "family"  : "Sears",
-			    "gender"  : "male",
-			    "age"     : 30
-			  },
-			  {
-			   	"id"      : 2 ,
-			    "name"    : "Whitfield",
-			    "family"  : "Rios",
-			    "gender"  : "male",
-			    "age"     : 36
-			  },
-			  {
-			   	"id"      : 3 ,
-			    "name"    : "Kerri",
-			    "family"  : "Buck",
-			    "gender"  : "female",
-			    "age"     : 39
-			  },
-			  {
-			   	"id"      : 4 ,
-			    "name"    : "Rhoda",
-			    "family"  : "Oneil",
-			    "gender"  : "female",
-			    "age"     : 25
-			  },
-			  {
-			   	"id"      : 5 ,
-			    "name"    : "Farley",
-			    "family"  : "Melendez",
-			    "gender"  : "male",
-			    "age"     : 32
-			  },
-			  {
-			   	"id"      : 6 ,
-			    "name"    : "Green",
-			    "family"  : "Perry",
-			    "gender"  : "male",
-			    "age"     : 25
-			  },
-			  {
-			   	"id"      : 7 ,
-			    "name"    : "Weiss",
-			    "family"  : "Flynn",
-			    "gender"  : "male",
-			    "age"     : 25
-			  },
-			  {
-			   	"id"      : 8 ,
-			    "name"    : "Glover",
-			    "family"  : "Houston",
-			    "gender"  : "male",
-			    "age"     : 31
-			  },
-			  {
-			   	"id"      : 9 ,
-			    "name"    : "Ward",
-			    "family"  : "Wilson",
-			    "gender"  : "male",
-			    "age"     : 32
-			  },
-			  {
-			   	"id"      : 10 ,
-			    "name"    : "Mueller",
-			    "family"  : "Gould",
-			    "gender"  : "male",
-			    "age"     : 34
-			  },
-			  {
-			   	"id"      : 11 ,
-			    "name"    : "Ruth",
-			    "family"  : "Landry",
-			    "gender"  : "female",
-			    "age"     : 29
-			  },
-			  {
-			   	"id"      : 12 ,
-			    "name"    : "Guerra",
-			    "family"  : "Hyde",
-			    "gender"  : "male",
-			    "age"     : 37
-			  },
-			  {
-			   	"id"      : 13 ,
-			    "name"    : "Gloria",
-			    "family"  : "Salazar",
-			    "gender"  : "female",
-			    "age"     : 37
-			  },
-			  {
-			   	"id"      : 14 ,
-			    "name"    : "Opal",
-			    "family"  : "Delacruz",
-			    "gender"  : "female",
-			    "age"     : 27
-			  },
-			  {
-			   	"id"      : 15 ,
-			    "name"    : "Felecia",
-			    "family"  : "Gonzales",
-			    "gender"  : "female",
-			    "age"     : 29
-			  },
-			  {
-			   	"id"      : 16 ,
-			    "name"    : "Robertson",
-			    "family"  : "Mitchell",
-			    "gender"  : "male",
-			    "age"     : 34
-			  },
-			  {
-			   	"id"      : 17 ,
-			    "name"    : "Callahan",
-			    "family"  : "Torres",
-			    "gender"  : "male",
-			    "age"     : 22
-			  },
-			  {
-			   	"id"      : 18 ,
-			    "name"    : "Dotson",
-			    "family"  : "Bridges",
-			    "gender"  : "male",
-			    "age"     : 36
-			  },
-			  {
-			   	"id"      : 19 ,
-			    "name"    : "Georgette",
-			    "family"  : "Kramer",
-			    "gender"  : "female",
-			    "age"     : 20
-			  },
-			  {
-			   	"id"      : 20 ,
-			    "name"    : "Contreras",
-			    "family"  : "Hobbs",
-			    "gender"  : "male",
-			    "age"     : 38
-			  },
-			  {
-			   	"id"      : 21 ,
-			    "name"    : "Townsend",
-			    "family"  : "Holden",
-			    "gender"  : "male",
-			    "age"     : 25
-			  },
-			  {
-			   	"id"      : 22 ,
-			    "name"    : "Cline",
-			    "family"  : "Conley",
-			    "gender"  : "male",
-			    "age"     : 27
-			  },
-			  {
-			   	"id"      : 23 ,
-			    "name"    : "Ayala",
-			    "family"  : "Mccullough",
-			    "gender"  : "male",
-			    "age"     : 24
-			  },
-			  {
-			   	"id"      : 24 ,
-			    "name"    : "Joyce",
-			    "family"  : "Horn",
-			    "gender"  : "male",
-			    "age"     : 21
-			  },
-			  {
-			   	"id"      : 25 ,
-			    "name"    : "Guadalupe",
-			    "family"  : "Dodson",
-			    "gender"  : "female",
-			    "age"     : 22
-			  },
-			  {
-			   	"id"      : 26 ,
-			    "name"    : "Buck",
-			    "family"  : "Finch",
-			    "gender"  : "male",
-			    "age"     : 37
-			  },
-			  {
-			   	"id"      : 27 ,
-			    "name"    : "Barrett",
-			    "family"  : "Mendez",
-			    "gender"  : "male",
-			    "age"     : 34
-			  },
-			  {
-			   	"id"      : 28 ,
-			    "name"    : "Wendy",
-			    "family"  : "Dudley",
-			    "gender"  : "female",
-			    "age"     : 30
-			  },
-			  {
-			   	"id"      : 29 ,
-			    "name"    : "Beulah",
-			    "family"  : "Coffey",
-			    "gender"  : "female",
-			    "age"     : 31
-			  },
-			  {
-			   	"id"      : 30 ,
-			    "name"    : "Riley",
-			    "family"  : "Quinn",
-			    "gender"  : "male",
-			    "age"     : 39
-			  }
-			];
+    	var slides = [
+    		{'img' : 'http://tanabche.com/wp-content/uploads/2017/02/1.jpg'},
+    		{'img' : 'http://tanabche.com/wp-content/uploads/2017/02/2.jpg'},
+    		{'img' : 'http://tanabche.com/wp-content/uploads/2017/02/3.jpg'},
+    		{'img' : 'http://tanabche.com/wp-content/uploads/2017/02/4.jpg'},
+    		{'img' : 'http://tanabche.com/wp-content/uploads/2017/02/5.jpg'},
+    		{'img' : 'http://tanabche.com/wp-content/uploads/2017/02/6.jpg'},
+    	];
 
-		$scope.dataList = data;	
+    	$scope.slideList = slides;
 
-		$scope.currentPage = 1;
-	    $scope.total_show = "5";
-	    $scope.numberOfPages = 10;
+    	var SliderPause = 0;
+		$scope.pauseSlider = function(){
+			SliderPause = 1;
+		};
+		$scope.playSlider = function(){
+			SliderPause = 0;
+		};
 
-	    $scope.pagenumber = true;
-	    $scope.totla_result_showing = true;
-	    $scope.totla_result_showing_onsearcchh = false;
+		var startSlider = 1;
+		$scope.SliderItemActive = startSlider;
+		setInterval(function(){
+			if (SliderPause != 1) {
+				if (startSlider < 5 ) {
+					startSlider++;
+				}else{
+					startSlider = 1;
+				}
+				$scope.$apply(function () {
+			        $scope.SliderItemActive = startSlider;
+			    });
+		    }
+		},4000);
 
-	    $scope.sortKey = function(key) {
-        	$scope.currentPage = 1;
-            $scope.myOrderBy = key;
-        };
+		$scope.SliderNext = function(){
+			var curent = $scope.SliderItemActive;
+			if ($scope.SliderItemActive < 5) {
+				$scope.SliderItemActive++;
+			}else{
+				$scope.SliderItemActive = 1;
+			}		
+		};
 
-        $scope.maxtotal = data.length / parseInt($scope.total_show);
-        $scope.changeTotalShow = function(){
-        	$scope.maxtotal = data.length / parseInt($scope.total_show);
-        };
+		$scope.SliderPrev = function(){
+			var curent = $scope.SliderItemActive;
+			if ($scope.SliderItemActive > 1) {
+				$scope.SliderItemActive--;
+			}else{
+				$scope.SliderItemActive = 5;
+			}		
+		};
+		
 	});
 			
 	</script>
